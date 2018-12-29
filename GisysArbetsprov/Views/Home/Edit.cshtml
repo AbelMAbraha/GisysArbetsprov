@@ -1,0 +1,52 @@
+﻿@model GisysArbetsprov.Models.ConsultInformation
+
+@{
+    ViewBag.Title = "Edit";
+}
+
+<h2>Edit</h2>
+
+@using (Html.BeginForm())
+{
+    <h4>Consult Information</h4>
+    <hr />
+            <div class="form-horizontal">
+                <div class="form-group">
+                    <label class="control-label col-md-2">Name</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="Name" value="@Model.Name" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Year of Employment</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="date" name="YearsOfEmployment" value="@Model.YearsOfEmployment.ToString("yyyy-MM-dd")" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Hours</label>
+                    <div class="col-md-10">
+                        <input class="form-control" type="text" name="Hours" value="@Model.Hours" />
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label class="control-label col-md-2">Bonus</label>
+                    <div class="col-md-10">
+                        <input class="form-control" disabled type="text" value="@Model.Bonus" />
+                    </div>
+                </div>
+            </div>
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </div>
+}
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
