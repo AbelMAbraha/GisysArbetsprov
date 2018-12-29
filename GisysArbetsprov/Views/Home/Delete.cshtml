@@ -1,43 +1,22 @@
 ﻿@model GisysArbetsprov.Models.ConsultInformation
+
 @{
-    ViewBag.Title = "Home Page";
+    ViewBag.Title = "Delete";
 }
 
+<h2>Delete</h2>
 
 
-
-
-<div ng-app="MyApp" style="margin-bottom: 40px">
-    <div>
-        <table id="customers" ng-controller="HomeController">
-            <tr>
-                <th>Name</th>
-                <th>Hours</th>
-                <th>Bonus</th>
-                <th style="width: 20%">Edit</th>
-            </tr>
-            <tr ng-repeat="consultant in consultantInformation">
-                <td>{{consultant.Name}}</td>
-                <td>{{consultant.Hours}}</td>
-                <td>{{consultant.Bonus}} kr</td>
-                <td>
-                    <a class="btn btn-primary" style="width: 49%" href="/Home/Edit/{{consultant.Id}}">Edit</a>
-                    <a class="btn btn-danger" style="width: 49%" href="/Home/Delete/{{consultant.Id}}">Delete</a>
-                </td>
-            </tr>
-        </table>
-    </div>
-    <div>
-    </div>
-</div>
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-
+    
     <div class="form-horizontal">
-        <h4 style="text-align:center">Add a Consult</h4>
+        <h4>ConsultInformation</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        @Html.HiddenFor(model => model.Id)
+
         <div class="form-group">
             @Html.LabelFor(model => model.Name, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
@@ -49,7 +28,7 @@
         <div class="form-group">
             @Html.LabelFor(model => model.YearOfEmployment, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.YearOfEmployment, new { htmlAttributes = new { @class = "form-control", type = "date" } })
+                @Html.EditorFor(model => model.YearOfEmployment, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.YearOfEmployment, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -63,13 +42,25 @@
         </div>
 
         <div class="form-group">
+            @Html.LabelFor(model => model.Bonus, htmlAttributes: new { @class = "control-label col-md-2" })
+            <div class="col-md-10">
+                @Html.EditorFor(model => model.Bonus, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Bonus, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Create" class="btn btn-default" />
+                <input type="submit" value="Save" class="btn btn-default" />
             </div>
         </div>
     </div>
 }
-<script src="~/Scripts/AngularController/GetConsultant.js"></script>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 }

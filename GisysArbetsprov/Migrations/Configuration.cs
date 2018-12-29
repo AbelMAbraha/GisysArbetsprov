@@ -22,14 +22,14 @@ namespace GisysArbetsprov.Migrations
             Id = 1,
             Name = "Robert",
             Hours = 160,
-            YearsOfEmployment = new DateTime(2017, 10, 01)
+            YearOfEmployment = new DateTime(2017, 10, 01)
         },
         new ConsultInformation()
         {
             Id = 2,
             Name = "Abel",
             Hours = 150,
-            YearsOfEmployment = new DateTime(2015, 05, 08)
+            YearOfEmployment = new DateTime(2015, 05, 08)
         });
         }
     }

@@ -26,7 +26,7 @@ namespace GisysArbetsprov.Controllers
             foreach (var item in consultants)
             {
                 var editUser = db.ConsultInformations.Find(item.Id);
-                editUser.Bonus = Convert.ToInt32(BonusPott * (((((DateTime.Now.Year - item.YearsOfEmployment.Year) / 10m) + 1) * item.Hours) / CreditPoint()));
+                editUser.Bonus = Convert.ToInt32(BonusPott * (((((DateTime.Now.Year - item.YearOfEmployment.Year) / 10m) + 1) * item.Hours) / CreditPoint()));
                 db.Entry(editUser).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -35,16 +35,9 @@ namespace GisysArbetsprov.Controllers
         [HttpPost]
         public ActionResult Index(ConsultInformation consInfo)
         {
-            if (consInfo.YearsOfEmployment.Year == 0001)
-            {
-                return View();
-            }
-            else
-            {
-                db.ConsultInformations.Add(new ConsultInformation { Name = consInfo.Name, Hours = consInfo.Hours, YearsOfEmployment = Convert.ToDateTime(consInfo.YearsOfEmployment.ToString("yyyy-MM-dd")) });
-                db.SaveChanges();
-                return View();
-            }
+            db.ConsultInformations.Add(new ConsultInformation { Name = consInfo.Name, Hours = consInfo.Hours, YearOfEmployment = Convert.ToDateTime(consInfo.YearOfEmployment.ToString("yyyy-MM-dd")) });
+            db.SaveChanges();
+            return View();
         }
         [HttpGet]
         public ActionResult Edit(int id)
@@ -57,7 +50,7 @@ namespace GisysArbetsprov.Controllers
             var editConsultant = db.ConsultInformations.Find(consInfo.Id);
             editConsultant.Hours = consInfo.Hours;
             editConsultant.Name = consInfo.Name;
-            editConsultant.YearsOfEmployment = Convert.ToDateTime(consInfo.YearsOfEmployment.ToString("yyyy-MM-dd"));
+            editConsultant.YearOfEmployment = Convert.ToDateTime(consInfo.YearOfEmployment.ToString("yyyy-MM-dd"));
             db.Entry(editConsultant).State = EntityState.Modified;
             db.SaveChanges();
             return RedirectToAction("Index");
@@ -82,13 +75,13 @@ namespace GisysArbetsprov.Controllers
             var consultants = db.ConsultInformations.ToList();
             foreach (var item in consultants)
             {
-                if ((DateTime.Now - item.YearsOfEmployment).TotalDays < 365)
+                if ((DateTime.Now - item.YearOfEmployment).TotalDays < 365)
                 {
                     creditPoint += item.Hours;
                 }
                 else
                 {
-                    creditPoint += (((DateTime.Now.Year - item.YearsOfEmployment.Year) / 10m) + 1) * item.Hours;
+                    creditPoint += (((DateTime.Now.Year - item.YearOfEmployment.Year) / 10m) + 1) * item.Hours;
                 }
             }
             return decimal.Truncate(creditPoint);
