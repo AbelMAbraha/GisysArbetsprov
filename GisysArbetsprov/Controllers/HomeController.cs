@@ -13,7 +13,6 @@ namespace GisysArbetsprov.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-
             return View();
         }
         public JsonResult GetConsultants()
