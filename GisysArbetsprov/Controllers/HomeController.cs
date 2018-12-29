@@ -13,7 +13,7 @@ namespace GisysArbetsprov.Controllers
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
         {
-            
+
             return View();
         }
         public JsonResult GetConsultants()
@@ -35,9 +35,16 @@ namespace GisysArbetsprov.Controllers
         [HttpPost]
         public ActionResult Index(ConsultInformation consInfo)
         {
-            db.ConsultInformations.Add(new ConsultInformation { Name = consInfo.Name, Hours = consInfo.Hours, YearsOfEmployment = Convert.ToDateTime(consInfo.YearsOfEmployment.ToString("yyyy-MM-dd")) });
-            db.SaveChanges();
-            return View();
+            if (consInfo.YearsOfEmployment.Year == 0001)
+            {
+                return View();
+            }
+            else
+            {
+                db.ConsultInformations.Add(new ConsultInformation { Name = consInfo.Name, Hours = consInfo.Hours, YearsOfEmployment = Convert.ToDateTime(consInfo.YearsOfEmployment.ToString("yyyy-MM-dd")) });
+                db.SaveChanges();
+                return View();
+            }
         }
         [HttpGet]
         public ActionResult Edit(int id)

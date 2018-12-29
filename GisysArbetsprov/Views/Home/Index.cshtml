@@ -1,4 +1,4 @@
-﻿@model IEnumerable<GisysArbetsprov.Models.ConsultInformation>
+﻿@model GisysArbetsprov.Models.ConsultInformation
 @{
     ViewBag.Title = "Home Page";
 }
@@ -32,6 +32,7 @@
             <input class="form-control" style="display: initial !important;" type="text" name="Name" placeholder="Name" />
             <input class="form-control" style="display: initial !important;" type="number" name="Hours" placeholder="Hours" />
             <input id="date" class="form-control" style="display: initial !important;" type="date" name="YearsOfEmployment" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            @Html.ValidationMessageFor(Model => Model.YearsOfEmployment, "", new { @class = "text-danger" })
             <button class="btn btn-info" type="submit">Save</button>
         </form>
     </div>
