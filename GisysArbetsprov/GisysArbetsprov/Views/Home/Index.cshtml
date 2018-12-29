@@ -1,0 +1,69 @@
+﻿@model IEnumerable<GisysArbetsprov.Models.ConsultInformation>
+@{
+    ViewBag.Title = "Home Page";
+}
+
+
+
+
+
+<div ng-app="MyApp">
+    <div>
+        <table id="customers" ng-controller="HomeController">
+            <tr>
+                <th>Name</th>
+                <th>Hours</th>
+                <th>Bonus</th>
+                <th style="width: 20%">Edit</th>
+            </tr>
+            <tr ng-repeat="consultant in consultantInformation">
+                <td>{{consultant.Name}}</td>
+                <td>{{consultant.Hours}}</td>
+                <td>{{consultant.Bonus}} kr</td>
+                <td>
+                    <a class="btn btn-primary" style="width: 49%" href="/Home/Edit/{{consultant.Id}}">Edit</a>
+                    <a class="btn btn-danger" style="width: 49%" href="/Home/Delete/{{consultant.Id}}">Delete</a>
+                </td>
+            </tr>
+        </table>
+    </div>
+    <div>
+        <form method="post" action="/Home/Index">
+            <input class="form-control" style="display: initial !important;" type="text" name="Name" placeholder="Name" />
+            <input class="form-control" style="display: initial !important;" type="number" name="Hours" placeholder="Hours" />
+            <input id="date" class="form-control" style="display: initial !important;" type="date" name="YearsOfEmployment" max="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            <button class="btn btn-info" type="submit">Save</button>
+        </form>
+    </div>
+</div>
+<script src="~/Scripts/AngularController/GetConsultant.js"></script>
+<style>
+    #customers {
+        font-family: "Trebuchet MS", Arial, Helvetica, sans-serif;
+        border-collapse: collapse;
+        width: 100%;
+    }
+
+        #customers td, #customers th {
+            border: 1px solid #ddd;
+            padding: 8px;
+            text-align: center;
+        }
+
+        #customers tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        #customers tr:hover {
+            background-color: #ddd;
+        }
+
+        #customers th {
+            padding-top: 12px;
+            padding-bottom: 12px;
+            text-align: left;
+            background-color: #4CAF50;
+            color: white;
+            text-align: center;
+        }
+</style>
