@@ -26,7 +26,14 @@ namespace GisysArbetsprov.Controllers
             foreach (var item in consultants)
             {
                 var editUser = db.ConsultInformations.Find(item.Id);
-                editUser.Bonus = Convert.ToInt32(BonusPott * (((((DateTime.Now.Year - item.YearsOfEmployment.Year) / 10m) + 1) * item.Hours) / CreditPoint()));
+                if ((DateTime.Now - item.YearsOfEmployment).TotalDays < 365)
+                {
+                    editUser.Bonus = 0;
+                }
+                else
+                {
+                    editUser.Bonus = Convert.ToInt32(BonusPott * (((((DateTime.Now.Year - item.YearsOfEmployment.Year) / 10m) + 1) * item.Hours) / CreditPoint()));
+                }
                 db.Entry(editUser).State = EntityState.Modified;
                 db.SaveChanges();
             }
@@ -77,7 +84,7 @@ namespace GisysArbetsprov.Controllers
             {
                 if ((DateTime.Now - item.YearsOfEmployment).TotalDays < 365)
                 {
-                    creditPoint += item.Hours;
+                    //creditPoint += item.Hours;
                 }
                 else
                 {
