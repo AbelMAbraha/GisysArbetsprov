@@ -12,8 +12,7 @@ namespace GisysArbetsprov.Controllers
     {
         ApplicationDbContext db = new ApplicationDbContext();
         public ActionResult Index()
-        {
-            
+        {          
             return View();
         }
         public JsonResult GetConsultants()
@@ -22,7 +21,6 @@ namespace GisysArbetsprov.Controllers
             ConsultInformation consult = new ConsultInformation();
             List<ConsultInformation> list = new List<ConsultInformation>();
             var consultants = db.ConsultInformations.ToList();
-
             foreach (var item in consultants)
             {
                 var editUser = db.ConsultInformations.Find(item.Id);
